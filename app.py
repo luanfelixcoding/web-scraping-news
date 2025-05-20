@@ -27,5 +27,29 @@ def fetch_tech_news() -> None:
         print(f"{idx}. {headline.text.strip()}")
 
 
+def fetch_verge_news() -> None:
+    """
+    Fetches and displays the 10 latest tech news headlines from the TheVerge homepage.
+
+    Args:
+        None
+
+    Returns:
+        None
+    """
+    url = "https://theverge.com/tech"
+    response = requests.get(url)
+    soup = BeautifulSoup(response.text, "html.parser")
+
+    headlines = soup.find_all("div", class_="_1xwtict9 _1pm20r55 _1pm20r52")
+
+    print("\nLatest Tech News from The Verge:\n")
+
+    # Print the first 10 unique headlines
+    for idx, headline in enumerate(headlines[:10], 1):
+        print(f"{idx}. {headline.text.strip()}")
+
+
 if __name__ == '__main__':
     fetch_tech_news()
+    fetch_verge_news()
