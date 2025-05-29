@@ -2,6 +2,16 @@ import requests
 from bs4 import BeautifulSoup
 
 
+def save_to_file(source: str, headlines: str) -> None:
+    with open("tech_news.txt", "a", encoding="utf-8") as f:
+        f.write(f"\n--- {source} ---\n")
+        for idx, line in enumerate(headlines[:10], 1):
+            f.write(f"{idx}. {line.text.strip()}\n")
+            # title = headline.text.strip()
+            # link = headline['href']
+            # f.write(f"{idx}. {title}\n   Link: {link}\n")
+
+
 def fetch_tech_news() -> None:
     """
     Fetches and displays the 10 latest tech news headlines from the TechCrunch homepage.
@@ -26,6 +36,8 @@ def fetch_tech_news() -> None:
     for idx, headline in enumerate(headlines[:10], 1):
         print(f"{idx}. {headline.text.strip()}")
 
+    save_to_file("TechCrunch", headlines[:10])
+
 
 def fetch_verge_news() -> None:
     """
@@ -48,6 +60,8 @@ def fetch_verge_news() -> None:
     # Print the first 10 unique headlines
     for idx, headline in enumerate(headlines[:10], 1):
         print(f"{idx}. {headline.text.strip()}")
+
+    save_to_file("TheVerge", headlines[:10])
 
 
 if __name__ == '__main__':
